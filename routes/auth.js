@@ -7,11 +7,14 @@ const router = express.Router();
 
 router.get("/google",passport.authenticate("google", { scope: ["profile", "email"] }));
 
-router.get("/google/callback",passport.authenticate("google", {
-    failureRedirect: "http://localhost:3000",
-    successRedirect: "http://localhost:3000",
+router.get(
+  "/google/callback",
+  passport.authenticate("google", {
+    failureRedirect: "https://google-authenication-frontend.vercel.app",
+    successRedirect: "https://google-authenication-frontend.vercel.app",
   })
 );
+
 
 router.get("/logout", logout);
 
