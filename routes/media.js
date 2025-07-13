@@ -1,7 +1,8 @@
 const express = require("express");
 const { uploadMedia, getUserMedia ,deleteMedia} = require("../controllers/mediaController");
-const upload = require("../utils/multer");
+// const upload = require("../utils/multer");
 const isAuth = require("../middleware/isAuth");
+const upload = require("../utils/multerCloudinary");
 
 const router = express.Router();
 

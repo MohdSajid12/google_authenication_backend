@@ -5,17 +5,16 @@ const path = require("path");
 exports.uploadMedia = async (req, res) => {
   try {
     if (!req.file) {
-      return res.status(400).json({
-        success: false,
-        message: "No file uploaded.",
-      });
+      return res.status(400).json({ success: false, message: "No file uploaded" });
     }
 
     const media = new Media({
       user: req.user._id,
-      userEmail: req.user.email, 
-      filename: req.file.filename,
-      mimetype: req.file.mimetype, 
+      userEmail: req.user.email,
+      filename: req.file.filename,   
+      url: req.file.path,             
+      mimetype: req.file.mimetype,
+      publicId: req.file.filename,  
     });
 
     await media.save();
@@ -25,12 +24,9 @@ exports.uploadMedia = async (req, res) => {
       message: "File uploaded successfully.",
       media,
     });
-  } catch (err) {
-    console.error("Error:", err);
-    res.status(500).json({
-      success: false,
-      message: "Failed to upload media.",
-    });
+  } catch (error) {
+    console.error("Upload error:", error);
+    res.status(500).json({ success: false, message: "Failed to upload media." });
   }
 };
 
