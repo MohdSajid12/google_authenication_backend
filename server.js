@@ -28,8 +28,15 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    cookie: {
+      secure: false,          
+      sameSite: "lax",       
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000,  // 1 day
+    },
   })
 );
+
 app.use(passport.initialize());
 app.use(passport.session());
 
