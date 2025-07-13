@@ -22,6 +22,7 @@ app.use(
   })
 );
 
+
 app.use(express.json());
 
 app.set("trust proxy", 1);
@@ -31,13 +32,12 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: false,          
-      sameSite: "lax",       
-      httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000,  // 1 day
+      sameSite: "none",   // IMPORTANT for cross-site cookies
+      secure: true,       // IMPORTANT for HTTPS
     },
   })
 );
+
 
 app.use(passport.initialize());
 app.use(passport.session());
