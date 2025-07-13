@@ -14,7 +14,13 @@ require("./config/passport");
 const app = express();
 
 // Middlewares
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(
+  cors({
+    origin: "https://google-authenication-frontend.vercel.app",
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 app.use(
   session({
