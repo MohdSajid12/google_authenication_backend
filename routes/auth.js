@@ -18,6 +18,6 @@ router.get(
 
 router.get("/logout", logout);
 
-router.get('/current_user', isAuth, getCurrentUser);
+router.get('/current_user',getCurrentUser);
 
 module.exports = router;
