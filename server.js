@@ -7,6 +7,8 @@ const session = require("express-session");
 const passport = require("passport");
 const path = require("path");
 const multer = require('multer');
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
 
 
 dotenv.config();
@@ -32,9 +34,14 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      sameSite: "none",   // IMPORTANT for cross-site cookies
-      secure: true,       // IMPORTANT for HTTPS
+      sameSite: "none",
+      secure: true,
+      maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
     },
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URI,
+      collectionName: "sessions",
+    }),
   })
 );
 
