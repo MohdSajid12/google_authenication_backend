@@ -6,7 +6,7 @@ const passport = require("passport");
 const path = require("path");
 const multer = require('multer');
 
-require("./config/passport"); /
+require("./config/passport"); 
 
 const app = express();
 
