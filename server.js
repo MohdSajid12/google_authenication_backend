@@ -14,7 +14,7 @@ const app = express();
 app.use(
   cors({
     origin: "https://google-authenication-frontend.vercel.app",
-    credentials: false, 
+    credentials: true, 
   })
 );
 
