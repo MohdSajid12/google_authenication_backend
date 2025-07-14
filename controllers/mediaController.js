@@ -8,7 +8,8 @@ exports.uploadMedia = async (req, res) => {
   }
 
   const media = new Media({
-    user: req.user.id, 
+    user: req.user.id,              
+    userEmail: req.user.email,      
     filename: req.file.filename,
     url: req.file.path,
     mimetype: req.file.mimetype,
@@ -19,11 +20,9 @@ exports.uploadMedia = async (req, res) => {
   res.status(201).json({ success: true, media });
 };
 
-
 exports.getUserMedia = async (req, res) => {
   try {
-    const media = await Media.find({ user: req.user._id });
-
+    const media = await Media.find({ user: req.user.id });  
     res.json({
       success: true,
       message: media.length === 0 ? "No media found for this user." : "Media fetched successfully.",
@@ -38,21 +37,14 @@ exports.getUserMedia = async (req, res) => {
   }
 };
 
-
-
 exports.deleteMedia = async (req, res) => {
   try {
-    const media = await Media.findOne({ _id: req.params.id, user: req.user._id });
+    const media = await Media.findOne({ _id: req.params.id, user: req.user.id });
+
     if (!media) {
       return res.status(404).json({ success: false, message: "File not found" });
     }
-    const filePath = path.join(__dirname, "../uploads", req.user.email, media.filename);
 
-    if (fs.existsSync(filePath)) {
-      await fs.promises.unlink(filePath);
-    } else {
-      console.log(`File does not exist on disk: ${filePath}`);
-    }
 
     await media.deleteOne();
 
