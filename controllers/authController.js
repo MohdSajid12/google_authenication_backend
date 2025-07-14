@@ -1,33 +1,12 @@
 exports.logout = async (req, res) => {
-  try {
-    await new Promise((resolve, reject) => {
-      req.logout((err) => {
-        if (err) reject(err);
-        else resolve();
-      });
-    });
-
-    await new Promise((resolve, reject) => {
-      req.session.destroy((err) => {
-        if (err) reject(err);
-        else resolve();
-      });
-    });
-
-    // Clear cookie
-    res.clearCookie("connect.sid", { path: "/" });
-
-    res.json({
-      success: true,
-      message: "Logged out successfully.",
-    });
+try {
+    await API.get("/auth/logout");
   } catch (err) {
-    console.error("Error:", err);
-    res.status(500).json({
-      success: false,
-      message: "Logout failed. Please try again.",
-    });
+    console.error(err);
   }
+  localStorage.removeItem("token");  
+  setUser(null);
+  navigate("/");
 };
 
 // Get Current User 
