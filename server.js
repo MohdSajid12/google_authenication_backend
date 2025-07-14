@@ -7,7 +7,6 @@ const session = require("express-session");
 const passport = require("passport");
 const path = require("path");
 const multer = require('multer');
-const session = require("express-session");
 const MongoStore = require("connect-mongo");
 
 
