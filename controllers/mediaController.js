@@ -22,7 +22,8 @@ exports.uploadMedia = async (req, res) => {
 
 exports.getUserMedia = async (req, res) => {
   try {
-    const media = await Media.find({ user: req.user.id });  
+    // const media = await Media.find({ user: req.user.id });
+    const media = await Media.find({ user: req.user.id }).sort({ _id: -1 });  
     res.json({
       success: true,
       message: media.length === 0 ? "No media found for this user." : "Media fetched successfully.",
